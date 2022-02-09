@@ -1,11 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
-use App\Http\Controllers\Controller;
 use App\Models\ChartMaster;
-use App\Models\User;
-//use Facade\FlareClient\Http\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -18,9 +14,8 @@ class ChartMasterController extends Controller
      */
     public function getCOA()
     {
-        $user = Auth::user();
-        $ChartOfAc = ChartMaster::getCOF(Auth::user()->id);
-        return response([compact("ChartOfAc", "user")]);
+        $chart_of_ac = ChartMaster::getCOFforAuthed(Auth::user()->id);
+        return response([compact("chart_of_ac", )]);
     }
 
     /**

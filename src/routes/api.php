@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ChartMasterController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,10 +20,11 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::post('/users/store', [UserController::class, 'store']);
 Route::middleware('auth:sanctum')->group(function () {
 
-    Route::get('/chart-of-accounts', [ChartOfAccountsController::class, 'index']);
-    Route::post('/chart-of-accounts/new', [ChartOfAccountsController::class, 'store']);
-    Route::put('/chart-of-accounts/:id', [ChartOfAccountsController::class, 'edit']);
-    Route::delete('/chart-of-accounts/delete/:id', [ChartOfAccountsController::class, 'delete']);
+    Route::get('/chart-of-accounts', [ChartMasterController::class, 'getCOA']);
+    Route::post('/chart-of-accounts/new', [ChartMasterController::class, 'store']);
+    Route::put('/chart-of-accounts/:id', [ChartMasterController::class, 'edit']);
+    Route::delete('/chart-of-accounts/delete/:id', [ChartMasterController::class, 'delete']);
+    Route::get('/journal', [JournalController::class, 'store']);
     Route::get('journal/:id', [JournalController::class, 'get']);
     Route::put('/journal/:id', [JournalController::class, 'save']);
     Route::post('/journal', [JournalController::class, 'store']);

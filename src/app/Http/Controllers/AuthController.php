@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\helpers\DBUtils;
 use App\Models\ChartMaster;
 use App\Models\SystemSettings;
 use App\Models\User;
@@ -28,9 +29,10 @@ class AuthController extends Controller
             if (Hash::check($request->password, $user->password)) {
                 $token = $user->createToken("create_my_app_token")->plainTextToken;
                 $system = json_decode($this->getSystemSetting()) ?? [];
-                $chart_of_ac = ChartMaster::getCOA($user->id) ?? [];
+                $chart_of_ac = ChartMaster::getCOFforAuthed($user->id) ?? [];
+                //$chart_of_ac = DBUtils::dbResult($result);
 
-                return response(compact("user", "token", "system", "chart_of_ac"));
+                return response(compact("user", "token", "system", "chart_of_ac"), 200);
             }
         }
         return response(["message" => "Invalid user or password"], 401);
