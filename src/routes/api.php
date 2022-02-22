@@ -17,9 +17,9 @@ use Illuminate\Support\Facades\Route;
  */
 
 Route::post('/login', [AuthController::class, 'login']);
-Route::post('/users/store', [UserController::class, 'store']);
-Route::middleware('auth:sanctum')->group(function () {
 
+Route::middleware('auth:sanctum')->group(function () {
+    Route::post('/user/add', [UserController::class, 'store']);
     Route::get('/chart-of-accounts', [ChartMasterController::class, 'getCOA']);
     Route::post('/chart-of-accounts/new', [ChartMasterController::class, 'store']);
     Route::put('/chart-of-accounts/:id', [ChartMasterController::class, 'edit']);

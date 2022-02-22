@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rules\Password;
 
 class UserController extends Controller
 {
@@ -30,15 +31,15 @@ class UserController extends Controller
         //dd($request->all());
 
         $request->validate([
-            "email" => "email|required",
-            "name" => "required", /* ,
-        'password' => ['required', 'confirmed', Password::min(8)
-        ->mixedCase()
-        ->letters()
-        ->numbers()
-        ->symbols()
-        ->uncompromised()],
-         */
+            "email" => "required|email|unique:users",
+            "name" => "required",
+            'password' => ['required', 'confirmed', Password::min(8)
+            ->mixedCase()
+            ->letters()
+            ->numbers()
+            ->symbols()
+            ->uncompromised()],
+        
         ]);
 
         $user = User::create([

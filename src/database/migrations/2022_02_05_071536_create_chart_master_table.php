@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 class CreateChartMasterTable extends Migration
@@ -17,9 +18,10 @@ class CreateChartMasterTable extends Migration
             $table->id();
             $table->string('gl_account')->unique();
             $table->string('gl_name')->unique();
-            $table->string('gl_group');
+            $table->unsignedBigInteger('group_id');
             $table->boolean('gl_enabled')->default(false);
             $table->timestamps();
+            $table->foreign('group_id')->references('id')->on('gl_group');
         });
     }
 
