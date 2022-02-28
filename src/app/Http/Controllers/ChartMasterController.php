@@ -48,7 +48,8 @@ class ChartMasterController extends Controller
      */
     public function update(Request $request)
     {
-        //
+        $result = ChartMaster::where("id", $request->id)->update(["gl_name" => $request->gl_name]);
+        return $result ? response(["message" => "success"]) : response(["message" => "failed"]);
     }
 
     /**

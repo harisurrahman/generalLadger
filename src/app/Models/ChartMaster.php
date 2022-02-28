@@ -20,7 +20,7 @@ class ChartMaster extends Model
             ->join('chart_master', 'chart_master.gl_account', 'chart_master_premission.gl_account')
             ->join('gl_group', 'gl_group.id', '=', 'chart_master.group_id')
             ->where('users.id', $id)
-            ->select('chart_master.gl_account', 'gl_name', 'group_id', 'group_name')->get();
+            ->select('chart_master.id','chart_master.gl_account', 'gl_name', 'group_id', 'group_name')->get();
 
             return collect($coa)->toArray();
 

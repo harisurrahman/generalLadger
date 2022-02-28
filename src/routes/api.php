@@ -3,6 +3,8 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ChartMasterController;
+use App\Http\Controllers\GroupAccountController;
+use App\Http\Controllers\GroupLadgerController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,14 +21,38 @@ use Illuminate\Support\Facades\Route;
 Route::post('/login', [AuthController::class, 'login']);
 
 Route::middleware('auth:sanctum')->group(function () {
-    Route::post('/user/add', [UserController::class, 'store']);
+
+    Route::prefix('/user')->group(function () {
+        Route::post('/add', [UserController::class, 'store']);
+        Route::get('/get', [UserController::class, 'index']);
+    });
+
     Route::get('/chart-of-accounts', [ChartMasterController::class, 'getCOA']);
     Route::post('/chart-of-accounts/new', [ChartMasterController::class, 'store']);
-    Route::put('/chart-of-accounts/:id', [ChartMasterController::class, 'edit']);
+    Route::put('/chart-of-accounts', [ChartMasterController::class, 'update']);
     Route::delete('/chart-of-accounts/delete/:id', [ChartMasterController::class, 'delete']);
-    Route::get('/journal', [JournalController::class, 'store']);
-    Route::get('journal/:id', [JournalController::class, 'get']);
-    Route::put('/journal/:id', [JournalController::class, 'save']);
-    Route::post('/journal', [JournalController::class, 'store']);
+    Route::prefix('/journal')->group(function () {
+        Route::get('journal/:id', [JournalController::class, 'get']);
+        Route::put('/journal', [JournalController::class, 'save']);
+        Route::post('/journal', [JournalController::class, 'store']);
+        
+    });
+    Route::prefix('/group-accounts')->group(function () {
+        Route::get('/', [GroupAccountController::class, 'index']);
+        Route::post('/', [GroupAccountController::class, 'store']);
+        Route::put('/', [GroupAccountController::class, 'save']);
+        //Route::put('/', [GroupAccountController::class, 'update']);
+        //Route::delete('/', [GroupAccountController::class, 'delete']);
+    });
+    Route::prefix('/group-ladgers')->group(function () {
+        Route::get('/', [GroupLadgerController::class, 'index']);
+        Route::post('/', [GroupLadgerController::class, 'store']);
+        Route::put('/', [GroupLadgerController::class, 'save']);
+        Route::delete('/', [GroupLadgerController::class, 'delete']);
+    });
+
+
+   // Route::get('/account-group', [GlGroupController::class, 'index']);
+    
 
 });

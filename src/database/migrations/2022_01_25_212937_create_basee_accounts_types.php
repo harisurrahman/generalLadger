@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateGlGroupTable extends Migration
+class CreateBaseeAccountsTypes extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,10 @@ class CreateGlGroupTable extends Migration
      */
     public function up()
     {
-        Schema::create('gl_group', function (Blueprint $table) {
+        Schema::create('base_types', function (Blueprint $table) {
             $table->id();
-            $table->string('group_name');
-            $table->unsignedBigInteger('type_id');
+            $table->string('type_name');
             $table->timestamps();
-
-            $table->foreign('type_id')->references('id')->on('base_types');
         });
     }
 
@@ -30,6 +27,6 @@ class CreateGlGroupTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('gl_group');
+        Schema::dropIfExists('base_types');
     }
 }
