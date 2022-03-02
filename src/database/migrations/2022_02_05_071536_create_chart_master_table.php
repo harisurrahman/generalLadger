@@ -19,7 +19,7 @@ class CreateChartMasterTable extends Migration
             $table->string('gl_account')->unique();
             $table->string('gl_name')->unique();
             $table->unsignedBigInteger('group_id');
-            $table->boolean('gl_enabled')->default(false);
+            $table->boolean('gl_enabled')->default(true);
             $table->timestamps();
             $table->foreign('group_id')->references('id')->on('gl_group');
         });

@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\Route;
  */
 
 Route::post('/login', [AuthController::class, 'login']);
-
+Route::get("/test", [ChartMasterController::class, 'test']);
 Route::middleware('auth:sanctum')->group(function () {
 
     Route::prefix('/user')->group(function () {
@@ -27,8 +27,15 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('/get', [UserController::class, 'index']);
     });
 
-    Route::get('/chart-of-accounts', [ChartMasterController::class, 'getCOA']);
-    Route::post('/chart-of-accounts/new', [ChartMasterController::class, 'store']);
+    Route::prefix('/chart-master')->group(function () {
+        Route::get('/', [ChartMasterController::class, '/']);
+        Route::post('/', [ChartMasterController::class, 'store']);
+        Route::put('/', [ChartMasterController::class, 'save']);
+       
+    });
+
+    /* Route::get('/chart-of-accounts', [ChartMasterController::class, 'getCOA']);
+    Route::post('/chart-of-accounts', [ChartMasterController::class, 'store']);
     Route::put('/chart-of-accounts', [ChartMasterController::class, 'update']);
     Route::delete('/chart-of-accounts/delete/:id', [ChartMasterController::class, 'delete']);
     Route::prefix('/journal')->group(function () {
@@ -36,7 +43,7 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::put('/journal', [JournalController::class, 'save']);
         Route::post('/journal', [JournalController::class, 'store']);
         
-    });
+    }); */
     Route::prefix('/group-accounts')->group(function () {
         Route::get('/', [GroupAccountController::class, 'index']);
         Route::post('/', [GroupAccountController::class, 'store']);

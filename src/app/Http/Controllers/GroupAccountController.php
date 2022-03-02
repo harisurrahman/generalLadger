@@ -12,7 +12,8 @@ class GroupAccountController extends Controller
     public function index()
     {
         $baseAccounts = BaseType::select('*')->orderBy('type_name', 'asc')->get();
-        $groupAccounts = GlGroup::select('*')->orderBy('group_name')->get();
+        //$groupAccounts = GlGroup::select('*')->orderBy('group_name')->get();
+        $groupAccounts =GlGroup::glGroupsWithSerials();
         return response()->json(compact(["baseAccounts", "groupAccounts"]));
     }
 
